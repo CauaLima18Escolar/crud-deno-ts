@@ -1,4 +1,4 @@
-Como usar o CRUD:
+# Como usar o CRUD:
 
     1. Para criar um item, use: create <matricula, nome, idade, curso>
     2. Para ler um item, use: read <matricula>
@@ -6,5 +6,3 @@ Como usar o CRUD:
     4. Para deletar um item, use: delete <matricula>
 
     Comando: deno run --allow-read --allow-write crud.ts <função> <dados>
-
-Boa prática!
