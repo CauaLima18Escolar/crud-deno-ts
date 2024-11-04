@@ -1,12 +1,52 @@
 {
-  "20231144010023": {
-    "name": "Olívia",
-    "age": 19,
-    "course": "Informática"
+  "20231144010001": {
+    "name": "João Silva",
+    "age": 20,
+    "course": "Engenharia"
   },
-  "202311410023": {
-    "name": "José",
+  "20231144010002": {
+    "name": "Maria Oliveira",
+    "age": 22,
+    "course": "Matemática"
+  },
+  "20231144010003": {
+    "name": "Carlos Souza",
+    "age": 21,
+    "course": "Física"
+  },
+  "20231144010004": {
+    "name": "Ana Costa",
     "age": 19,
-    "course": "Informática"
+    "course": "Química"
+  },
+  "20231144010005": {
+    "name": "Pedro Lima",
+    "age": 23,
+    "course": "Biologia"
+  },
+  "20231144010006": {
+    "name": "Luciana Santos",
+    "age": 20,
+    "course": "Psicologia"
+  },
+  "20231144010007": {
+    "name": "Mariana Ferreira",
+    "age": 22,
+    "course": "Design"
+  },
+  "20231144010008": {
+    "name": "Ricardo Almeida",
+    "age": 24,
+    "course": "Arquitetura"
+  },
+  "20231144010009": {
+    "name": "Fernanda Rocha",
+    "age": 21,
+    "course": "Sociologia"
+  },
+  "20231144010010": {
+    "name": "Lucas Mendes",
+    "age": 25,
+    "course": "Economia"
   }
 }

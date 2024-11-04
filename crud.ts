@@ -7,22 +7,15 @@ interface STUDENT {
 }
 
 const STUDENT = new Map<string, STUDENT>();
-
 const FILE_PATH = "./db.json";
 
 async function ensureDataFile() {
   await ensureFile(FILE_PATH);
 }
 
-async function readData(id?:string) {
+async function readData() {
   await ensureDataFile();
   const data = await Deno.readTextFile(FILE_PATH);
-
-  if (id){
-    const ST_DATA = JSON.parse(data)[id]
-    return ST_DATA ? ST_DATA : null
-  }
-
   return data ? JSON.parse(data) : null;
 }
 
@@ -40,14 +33,29 @@ async function writeFile(ST_DATA:object) {
     console.log('Estudante adicionado')
 }
 
+// Adicionar um estudante ao JSON
 async function createST(mat:string, stName:string, stAge:number, stCourse:string) {
   STUDENT.set(mat, { name: stName, age: stAge, course: stCourse})
   const ST_DATA = Object.fromEntries(STUDENT)
   await writeFile(ST_DATA)
 }
 
+// Buscar por um estudante no JSON
 async function readST(mat:string) {
-  const ST_DATA = await readData(mat)
+  const DATA = await readData()
+  const ST_DATA = DATA[mat]
+  
+  if (ST_DATA) {
+    return console.log(ST_DATA)
+  }
+
+  return console.log('Estudante não encontrado')
+}
+
+// Atualizar um estudante no JSON
+async function updateST(mat:string) {
+  const DATA = await readData()
+  const ST_DATA = DATA[mat]
   
   if (ST_DATA) {
     return console.log(ST_DATA)
@@ -60,6 +68,11 @@ function main() {
   const args = Deno.args;
   const commands = ['createST', 'readST', 'updateST', 'deleteST']
 
+  let mat:string
+  let stName:string
+  let stAge:number
+  let stCourse:string
+
   if (!commands.includes(args[0])) {
     console.log("Erro. Esse comando não existe");
     return;
@@ -67,20 +80,36 @@ function main() {
 
   switch(args[0]) {
     case 'createST':
-      
-      const mat = args[1];
-      const stName = args[2];
-      const stAge = parseInt(args[3]);
-      const stCourse = args[4];
+      if (args.length !== 5) {
+        console.log("Erro. Esse comando não existe");
+        return;
+      } 
+
+      mat = args[1];
+      stName = args[2];
+      stAge = parseInt(args[3]);
+      stCourse = args[4];
     
       createST(mat, stName, stAge, stCourse);
       break
-
     case 'readST':
-      
-      const search = args[1];
+      if (args.length !== 2) {
+        console.log("Erro. Esse comando não existe");
+        return;
+      } 
+      mat = args[1];
     
-      readST(search);
+      readST(mat);
+      break
+    case 'updateST':
+      if (args.length !== 2) {
+        console.log("Erro. Esse comando não existe");
+        return;
+      } 
+
+      mat = args[1];
+    
+      updateST(mat)
       break
   }
 }
