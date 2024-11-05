@@ -1,5 +1,3 @@
-import { ensureFile } from "https://deno.land/std@0.203.0/fs/mod.ts";
-
 interface STUDENT {
   name: string;
   age: number;
@@ -9,14 +7,9 @@ interface STUDENT {
 const STUDENT = new Map<string, STUDENT>();
 const FILE_PATH = "./db.json";
 
-async function ensureDataFile() {
-  await ensureFile(FILE_PATH);
-}
-
 async function readData() {
-  await ensureDataFile();
-  const data = await Deno.readTextFile(FILE_PATH);
-  return data ? JSON.parse(data) : null;
+  const DATA = await Deno.readTextFile(FILE_PATH);
+  return DATA ? JSON.parse(DATA) : null;
 }
 
 async function writeFile(ST_DATA:object) {
@@ -40,25 +33,46 @@ async function createST(mat:string, stName:string, stAge:number, stCourse:string
   await writeFile(ST_DATA)
 }
 
-// Buscar por um estudante no JSON
-async function readST(mat:string) {
+// Mostrar estudantes no JSON
+async function readST() {
   const DATA = await readData()
-  const ST_DATA = DATA[mat]
-  
-  if (ST_DATA) {
-    return console.log(ST_DATA)
+
+  if (DATA) {
+    const MATRICULAS = Object.keys(DATA)
+    MATRICULAS.forEach(MATRICULA => console.log(MATRICULA))
+    return
   }
 
-  return console.log('Estudante não encontrado')
+  return console.log('Não há estudantes cadastrados.')
+  
 }
 
 // Atualizar um estudante no JSON
 async function updateST(mat:string) {
   const DATA = await readData()
   const ST_DATA = DATA[mat]
-  
+  const OPTIONS = `
+
+  [1] Para mudar o nome do estudante
+  [2] Para mudar a idade do estudante
+  [3] Para mudar o curso do estudante
+
+  `
   if (ST_DATA) {
-    return console.log(ST_DATA)
+    console.log(ST_DATA, OPTIONS)
+    const OPTION:number = parseInt(prompt('INSIRA UMA OPÇÃO >>> ') || '0')
+
+    switch(OPTION) {
+      case 1:
+        const NEW_NAME:string = prompt('INFORME O NOVO NOME >>> ') || `${ST_DATA.name}`
+        ST_DATA.name = NEW_NAME
+        await writeFile(ST_DATA)
+        break
+        
+      default:
+        console.log('ESSA OPÇÃO NÃO EXISTE.')
+        break
+    }
   }
 
   return console.log('Estudante não encontrado')
@@ -74,14 +88,14 @@ function main() {
   let stCourse:string
 
   if (!commands.includes(args[0])) {
-    console.log("Erro. Esse comando não existe");
+    console.log("Erro: Esse comando não existe no CRUD");
     return;
   }
 
   switch(args[0]) {
     case 'createST':
       if (args.length !== 5) {
-        console.log("Erro. Esse comando não existe");
+        console.log("Erro: Esse comando precisa de 4 argumentos.");
         return;
       } 
 
@@ -93,22 +107,16 @@ function main() {
       createST(mat, stName, stAge, stCourse);
       break
     case 'readST':
-      if (args.length !== 2) {
-        console.log("Erro. Esse comando não existe");
-        return;
-      } 
-      mat = args[1];
-    
-      readST(mat);
+      readST();
       break
     case 'updateST':
       if (args.length !== 2) {
-        console.log("Erro. Esse comando não existe");
+        console.log("Erro. Esse comando precisa de um argumento.");
         return;
       } 
 
       mat = args[1];
-    
+
       updateST(mat)
       break
   }
