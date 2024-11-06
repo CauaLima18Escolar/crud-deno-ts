@@ -30,26 +30,18 @@
     "course": "Psicologia"
   },
   "20231144010007": {
-    "name": "Mariana Ferreira",
-    "age": 22,
-    "course": "Design"
+    "name": "Olivia Cardoso",
+    "age": 18,
+    "course": "Informática"
   },
   "20231144010008": {
-    "name": "Ricardo Almeida",
+    "name": "Ricardo Azevedo",
     "age": 24,
     "course": "Arquitetura"
   },
-  "20231144010009": {
-    "name": "Fernanda Rocha",
+  "20241144010022": {
+    "name": "Jamily Silva",
     "age": 21,
     "course": "Sociologia"
-  },
-  "20231144010010": {
-    "name": "Lucas Mendes",
-    "age": 25,
-    "course": "Economia"
-  },
-  "name": "José Augusto da Silva",
-  "age": 19,
-  "course": "Informática"
+  }
 }
